@@ -17,20 +17,20 @@
     <div *ngFor="let book of libraryRequest" class="col-md-6 col-xl-3">
       <div class="card m-b-30">
         <div class="card-body row">
-          <div class="col-6">
-            <!-- Add your book image or cover -->
-            <a href=""><img alt="" class="img-fluid rounded-circle w-60"></a>
-          </div>
           <div class="col-6 card-title align-self-center mb-0">
-            <h5>{{book?.title}}</h5>
-            <p class="m-0">{{book?.author}}</p>
+            <h5>Title: {{book?.title}}</h5>
+            <p class="m-0">Author: {{book?.author}}</p>
+          </div>
+          <!-- Display Book ID -->
+          <div class="col-6 card-title align-self-center mb-0">
+            <p class="m-0">Book ID: {{book?.id}}</p>
           </div>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><i class="fa fa-user float-right"></i>{{book?.coAuthor}}</li>
+          <li class="list-group-item"><i class="fa fa-user float-right"></i>Co-Author: {{book?.coAuthor}}</li>
           <!-- Assuming 'category' is an array, you might need to loop through it -->
           <li *ngFor="let category of book?.category" class="list-group-item"><i
-            class="fa fa-tag float-right"></i>{{category?.genre}}</li>
+            class="fa fa-tag float-right"></i>Category: {{category?.genre}}</li>
         </ul>
         <div class="card-body">
           <div class="float-right btn-group btn-group-sm">
@@ -42,34 +42,121 @@
         </div>
       </div>
     </div>
-  </div>
 
   <!-- Add Book Modal -->
   <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="addBookModalLabel"
        aria-hidden="true">
-    <!-- Your existing modal content for adding a book -->
-    <!-- ... -->
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addBookModalLabel">Add Book</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #addForm="ngForm" (ngSubmit)="onAddBook(addForm)">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" ngModel name="title" class="form-control" id="title" placeholder="Title" required>
+            </div>
+            <div class="form-group">
+              <label for="author">Author</label>
+              <input type="text" ngModel name="author" class="form-control" id="author" placeholder="Author" required>
+            </div>
+            <div class="form-group">
+              <label for="coAuthor">Co-Author</label>
+              <input type="text" ngModel name="coAuthor" class="form-control" id="coAuthor" placeholder="Co-Author"
+                     required>
+            </div>
+            <div class="form-group">
+              <label for="category">Category</label>
+              <input type="text" ngModel name="category" class="form-control" id="category" placeholder="Category"
+                     required>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="add-book-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button (click)="onAddBook(addForm)" type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
+
 
   <!-- Edit Modal -->
   <div class="modal fade" id="updateBookModal" tabindex="-1" role="dialog" aria-labelledby="updateBookModalLabel"
        aria-hidden="true">
-    <!-- Your existing modal content for updating a book -->
-    <!-- ... -->
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateBookModalLabel">Edit Book {{editBook?.title}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #editForm="ngForm">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" ngModel="{{editBook?.title}}" name="title" class="form-control" id="title"
+                     placeholder="Title">
+            </div>
+            <div class="form-group">
+              <label for="author">Author</label>
+              <input type="text" ngModel="{{editBook?.author}}" name="author" class="form-control" id="author"
+                     placeholder="Author">
+            </div>
+            <div class="form-group">
+              <label for="coAuthor">Co-Author</label>
+              <input type="text" ngModel="{{editBook?.coAuthor}}" name="coAuthor" class="form-control" id="coAuthor"
+                     placeholder="Co-Author">
+            </div>
+            <div class="form-group">
+              <label for="category">Category</label>
+              <input type="text" ngModel="{{editBook?.category}}" name="category" class="form-control" id="category"
+                     placeholder="Category">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button (click)="onUpdateBook(editForm.value)" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Delete Modal -->
   <div class="modal fade" id="deleteBookModal" tabindex="-1" role="dialog" aria-labelledby="deleteBookModalLabel"
        aria-hidden="true">
-    <!-- Your existing modal content for deleting a book -->
-    <!-- ... -->
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteBookModalLabel">Delete Book</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete book {{deleteBook?.title}}?</p>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            <button (click)="onDeleteBook(deleteBook?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+          </div>
+
+        </div>
+
+        <!-- Notification for no books -->
+        <div *ngIf="libraryRequest?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+          <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">NO BOOKS!</h4>
+            <p>No Books were found.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
-<!-- Notification for no books -->
-<div *ngIf="libraryRequest?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
-  <div class="alert alert-info" role="alert">
-    <h4 class="alert-heading">NO BOOKS!</h4>
-    <p>No Books were found.</p>
-  </div>
 </div>

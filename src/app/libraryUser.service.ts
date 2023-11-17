@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LibraryUserRequest } from './libraryUserRequest';
+import { LibraryRequest } from './libraryRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -11,18 +11,18 @@ export class LibraryUserService {
 
   constructor(private http: HttpClient) {}
 
-  public getLibraryData(): Observable<LibraryUserRequest[]> {
-    return this.http.get<LibraryUserRequest[]>(`${this.apiUrl}`);
+  public getLibraryData(): Observable<LibraryRequest[]> {
+    return this.http.get<LibraryRequest[]>(`${this.apiUrl}`);
   }
 
-  public searchBooksByTitle(title: string): Observable<LibraryUserRequest[]> {
+  public searchBooksByTitle(title: string): Observable<LibraryRequest[]> {
     if (!title || title.trim() === '') {
       console.error('Invalid title for book search');
       return Observable.throw('Invalid title for book search');
     }
 
     const searchUrl = `${this.apiUrl}/search/${title}`;
-    return this.http.get<LibraryUserRequest[]>(searchUrl);
+    return this.http.get<LibraryRequest[]>(searchUrl);
   }
 
 }

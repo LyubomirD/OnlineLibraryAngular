@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LibraryAdminRequest } from './libraryAdminRequest';
-import { LibraryUserRequest } from './libraryUserRequest';
+import { LibraryRequest } from './libraryRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -12,17 +11,18 @@ export class LibraryAdminService {
 
   constructor(private http: HttpClient) {}
 
-  public getLibraryData(): Observable<LibraryUserRequest[]> {
-    return this.http.get<LibraryUserRequest[]>(`${this.apiUrl}`);
+  public getLibraryData(): Observable<LibraryRequest[]> {
+    return this.http.get<LibraryRequest[]>(`${this.apiUrl}`);
   }
 
-  public includeNewBookToLibrary(request: LibraryAdminRequest): Observable<void> {
+  public includeNewBookToLibrary(request: LibraryRequest): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}/add-book`, request);
   }
 
-  public updateBookInformation(bookId: number, request: LibraryAdminRequest): Observable<void> {
+  public updateBookInformation(bookId: number, request: LibraryRequest): Observable<void> {
     return this.http.put<void>(`${this.apiUrl}/update-book/${bookId}`, request);
   }
+
 
   public deleteBookFromLibrary(bookId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/delete-book/${bookId}`);

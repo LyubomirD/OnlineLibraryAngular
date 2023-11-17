@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { LibraryAdminRequest } from './libraryAdminRequest';
-import { LibraryUserRequest } from './libraryUserRequest';
-import { LibraryAdminService } from './libraryAdmin.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {LibraryRequest} from './libraryRequest';
+import {LibraryAdminService} from './libraryAdmin.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +10,12 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  public libraryRequest: LibraryUserRequest[] = [];
-  public editBook: LibraryAdminRequest;
-  public deleteBook: LibraryAdminRequest;
+  public libraryRequest: LibraryRequest[] = [];
+  public editBook: LibraryRequest;
+  public deleteBook: LibraryRequest;
 
-  constructor(private libraryService: LibraryAdminService) {}
+  constructor(private libraryService: LibraryAdminService) {
+  }
 
   ngOnInit(): void {
     this.loadLibraryData();
@@ -22,7 +23,7 @@ export class AppComponent implements OnInit {
 
   public loadLibraryData(): void {
     this.libraryService.getLibraryData().subscribe(
-      (response: LibraryUserRequest[]) => {
+      (response: LibraryRequest[]) => {
         this.libraryRequest = response;
       },
       (error: HttpErrorResponse) => {
@@ -31,32 +32,65 @@ export class AppComponent implements OnInit {
     );
   }
 
-  onOpenModal(param: LibraryUserRequest, action: string): void {
-    switch (action) {
-      case 'add':
-        this.editBook = {
-          title: '',
-          author: '',
-          coAuthor: '',
-          category: [],
-        };
-        this.deleteBook = null;
-        break;
+  onOpenModal(book: LibraryRequest, mode: string): void {
+    const container = document.getElementById('main-container');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
 
-      case 'edit':
-        this.editBook = { ...param, category: [...param.category] };
-        this.deleteBook = null;
-        break;
-
-      case 'delete':
-        this.editBook = null;
-        this.deleteBook = { ...param, category: [...param.category] };
-        break;
-
-      default:
-        console.error('Invalid action: ' + action);
-        break;
+    button.setAttribute('data-toggle', 'modal');
+    if (mode === 'add') {
+      button.setAttribute('data-target', '#addBookModal');
     }
-
+    if (mode === 'edit') {
+      this.editBook = book;
+      button.setAttribute('data-target', '#updateBookModal');
+    }
+    if (mode === 'delete') {
+      this.deleteBook = book;
+      button.setAttribute('data-target', '#deleteBookModal');
+    }
+    container.appendChild(button);
+    button.click();
   }
+
+  onAddBook(addForm: NgForm): void {
+    document.getElementById('add-book-form').click();
+    this.libraryService.includeNewBookToLibrary(addForm.value).subscribe(
+      () => {
+        console.log('Book Added');
+        this.loadLibraryData();
+        addForm.reset();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+        addForm.reset();
+      }
+    );
+  }
+
+  onUpdateBook(book: LibraryRequest): void {
+    this.libraryService.updateBookInformation(book.id, book).subscribe(
+      () => {
+        console.log('Book Updated');
+        this.loadLibraryData();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  onDeleteBook(bookId: number): void {
+    this.libraryService.deleteBookFromLibrary(bookId).subscribe(
+      () => {
+        console.log('Book Deleted');
+        this.loadLibraryData();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
 }
