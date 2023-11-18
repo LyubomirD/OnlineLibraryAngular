@@ -26,12 +26,18 @@
             <p class="m-0">Book ID: {{book?.id}}</p>
           </div>
         </div>
+
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><i class="fa fa-user float-right"></i>Co-Author: {{book?.coAuthor}}</li>
-          <!-- Assuming 'category' is an array, you might need to loop through it -->
-          <li *ngFor="let category of book?.category" class="list-group-item"><i
-            class="fa fa-tag float-right"></i>Category: {{category?.genre}}</li>
+          <li class="list-group-item"><i class="fa fa-user float-right"></i>Co-Author: {{ book?.coAuthor }}</li>
+          <!-- Displaying genres of categories -->
+          <li *ngIf="book?.category && book?.category.length > 0" class="list-group-item">
+            <i class="fa fa-tag float-right"></i>
+            Category: {{ getCategoryGenres(book?.category) }}
+          </li>
         </ul>
+
+
+
         <div class="card-body">
           <div class="float-right btn-group btn-group-sm">
             <a (click)="onOpenModal(book, 'edit')" class="btn btn-primary tooltips" data-placement="top"

@@ -19,6 +19,21 @@ export class AppComponent implements OnInit {
   constructor(private libraryService: LibraryAdminService, private librarySearchServer: LibraryUserService) {
   }
 
+  getCategoryGenres(categories: Category[] | undefined): string {
+    if (!categories || categories.length === 0) {
+      return 'Unknown Category';
+    }
+    return categories.map(category => category.genre).join(', ');
+  }
+
+  convertToSet(categories: string[] | undefined): Set<Category> {
+    if (!categories) {
+      return new Set<Category>();
+    }
+    return new Set(categories.map(genre => ({ genre } as Category)));
+  }
+
+
   ngOnInit(): void {
     this.loadLibraryData();
   }
