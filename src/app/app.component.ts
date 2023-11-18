@@ -3,6 +3,7 @@ import {LibraryRequest} from './libraryRequest';
 import {LibraryAdminService} from './libraryAdmin.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {NgForm} from '@angular/forms';
+import {LibraryUserService} from './libraryUser.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent implements OnInit {
   public editBook: LibraryRequest;
   public deleteBook: LibraryRequest;
 
-  constructor(private libraryService: LibraryAdminService) {
+  constructor(private libraryService: LibraryAdminService, private librarySearchServer: LibraryUserService) {
   }
 
   ngOnInit(): void {
@@ -22,7 +23,7 @@ export class AppComponent implements OnInit {
   }
 
   public loadLibraryData(): void {
-    this.libraryService.getLibraryData().subscribe(
+    this.librarySearchServer.getLibraryData().subscribe(
       (response: LibraryRequest[]) => {
         this.libraryRequest = response;
       },

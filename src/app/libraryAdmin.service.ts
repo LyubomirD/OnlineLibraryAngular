@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { LibraryRequest } from './libraryRequest';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {LibraryRequest} from './libraryRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -9,10 +9,7 @@ import { LibraryRequest } from './libraryRequest';
 export class LibraryAdminService {
   private apiUrl = 'http://localhost:8080/api/v1/library-admin';
 
-  constructor(private http: HttpClient) {}
-
-  public getLibraryData(): Observable<LibraryRequest[]> {
-    return this.http.get<LibraryRequest[]>(`${this.apiUrl}`);
+  constructor(private http: HttpClient) {
   }
 
   public includeNewBookToLibrary(request: LibraryRequest): Observable<void> {

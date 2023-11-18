@@ -43,6 +43,7 @@
       </div>
     </div>
 
+
   <!-- Add Book Modal -->
   <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="addBookModalLabel"
        aria-hidden="true">
@@ -54,24 +55,26 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
+        <!-- NgForm -->
         <div class="modal-body">
           <form #addForm="ngForm" (ngSubmit)="onAddBook(addForm)">
             <div class="form-group">
-              <label for="title">Title</label>
-              <input type="text" ngModel name="title" class="form-control" id="title" placeholder="Title" required>
+              <label for="add-title">Title</label>
+              <input type="text" ngModel name="title" class="form-control" id="add-title" placeholder="Title" required>
             </div>
             <div class="form-group">
-              <label for="author">Author</label>
-              <input type="text" ngModel name="author" class="form-control" id="author" placeholder="Author" required>
+              <label for="add-author">Author</label>
+              <input type="text" ngModel name="author" class="form-control" id="add-author" placeholder="Author" required>
             </div>
             <div class="form-group">
-              <label for="coAuthor">Co-Author</label>
-              <input type="text" ngModel name="coAuthor" class="form-control" id="coAuthor" placeholder="Co-Author"
+              <label for="add-coAuthor">Co-Author</label>
+              <input type="text" ngModel name="coAuthor" class="form-control" id="add-coAuthor" placeholder="Co-Author"
                      required>
             </div>
             <div class="form-group">
-              <label for="category">Category</label>
-              <input type="text" ngModel name="category" class="form-control" id="category" placeholder="Category"
+              <label for="add-category">Category</label>
+              <input type="text" ngModel name="category" class="form-control" id="add-category" placeholder="Category"
                      required>
             </div>
             <div class="modal-footer">
@@ -99,23 +102,23 @@
         <div class="modal-body">
           <form #editForm="ngForm">
             <div class="form-group">
-              <label for="title">Title</label>
-              <input type="text" ngModel="{{editBook?.title}}" name="title" class="form-control" id="title"
+              <label for="edit-title">Title</label>
+              <input type="text" ngModel="{{editBook?.title}}" name="title" class="form-control" id="edit-title"
                      placeholder="Title">
             </div>
             <div class="form-group">
-              <label for="author">Author</label>
-              <input type="text" ngModel="{{editBook?.author}}" name="author" class="form-control" id="author"
+              <label for="edit-author">Author</label>
+              <input type="text" ngModel="{{editBook?.author}}" name="author" class="form-control" id="edit-author"
                      placeholder="Author">
             </div>
             <div class="form-group">
-              <label for="coAuthor">Co-Author</label>
-              <input type="text" ngModel="{{editBook?.coAuthor}}" name="coAuthor" class="form-control" id="coAuthor"
+              <label for="edit-coAuthor">Co-Author</label>
+              <input type="text" ngModel="{{editBook?.coAuthor}}" name="coAuthor" class="form-control" id="edit-coAuthor"
                      placeholder="Co-Author">
             </div>
             <div class="form-group">
-              <label for="category">Category</label>
-              <input type="text" ngModel="{{editBook?.category}}" name="category" class="form-control" id="category"
+              <label for="edit-category">Category</label>
+              <input type="text" ngModel="{{editBook?.category}}" name="category" class="form-control" id="edit-category"
                      placeholder="Category">
             </div>
             <div class="modal-footer">
