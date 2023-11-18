@@ -4,6 +4,7 @@ import {LibraryAdminService} from './libraryAdmin.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {NgForm} from '@angular/forms';
 import {LibraryUserService} from './libraryUser.service';
+import { Category } from './category';
 
 @Component({
   selector: 'app-root',
@@ -57,15 +58,23 @@ export class AppComponent implements OnInit {
 
   onAddBook(addForm: NgForm): void {
     document.getElementById('add-book-form').click();
-    this.libraryService.includeNewBookToLibrary(addForm.value).subscribe(
+
+    const formData: LibraryRequest = {
+      title: addForm.value.title,
+      author: addForm.value.author,
+      coAuthor: addForm.value.coAuthor,
+      category: [addForm.value.category]
+    };
+
+    this.libraryService.includeNewBookToLibrary(formData).subscribe(
       () => {
         console.log('Book Added');
         this.loadLibraryData();
         addForm.reset();
       },
       (error: HttpErrorResponse) => {
+        console.log(formData);
         alert(error.message);
-        addForm.reset();
       }
     );
   }
@@ -77,6 +86,8 @@ export class AppComponent implements OnInit {
         this.loadLibraryData();
       },
       (error: HttpErrorResponse) => {
+        console.log(book.id);
+        console.log(book);
         alert(error.message);
       }
     );

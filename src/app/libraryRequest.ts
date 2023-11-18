@@ -5,5 +5,5 @@ export interface LibraryRequest {
   title: string;
   author: string;
   coAuthor: string;
-  category: Set<Category>;
+  category: string[];
 }
