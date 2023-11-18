@@ -58,7 +58,7 @@
 
         <!-- NgForm -->
         <div class="modal-body">
-          <form #addForm="ngForm" (ngSubmit)="onAddBook(addForm)">
+          <form #addForm="ngForm">
             <div class="form-group">
               <label for="add-title">Title</label>
               <input type="text" ngModel name="title" class="form-control" id="add-title" placeholder="Title" required>
