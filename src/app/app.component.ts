@@ -125,8 +125,8 @@ export class AppComponent implements OnInit {
     );
   }
 
-  onDeleteBook(bookId: number): void {
-    this.libraryService.deleteBookFromLibrary(bookId).subscribe(
+  onDeleteBook(): void {
+    this.libraryService.deleteBookFromLibrary(this.selectedBookId).subscribe(
       () => {
         console.log('Book Deleted');
         this.loadLibraryData();
