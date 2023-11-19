@@ -4,7 +4,7 @@ import {LibraryAdminService} from './libraryAdmin.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {NgForm} from '@angular/forms';
 import {LibraryUserService} from './libraryUser.service';
-import { Category } from './category';
+import {Category} from './category';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +15,8 @@ export class AppComponent implements OnInit {
   public libraryRequest: LibraryRequest[] = [];
   public editBook: LibraryRequest;
   public deleteBook: LibraryRequest;
+  public selectedBookId: number;
+
 
   constructor(private libraryService: LibraryAdminService, private librarySearchServer: LibraryUserService) {
   }
@@ -25,14 +27,6 @@ export class AppComponent implements OnInit {
     }
     return categories.map(category => category.genre).join(', ');
   }
-
-  convertToSet(categories: string[] | undefined): Set<Category> {
-    if (!categories) {
-      return new Set<Category>();
-    }
-    return new Set(categories.map(genre => ({ genre } as Category)));
-  }
-
 
   ngOnInit(): void {
     this.loadLibraryData();
@@ -49,7 +43,10 @@ export class AppComponent implements OnInit {
     );
   }
 
+
   onOpenModal(book: LibraryRequest, mode: string): void {
+    this.getBookIdByTitle(book.title);
+
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
     button.type = 'button';
@@ -69,6 +66,18 @@ export class AppComponent implements OnInit {
     }
     container.appendChild(button);
     button.click();
+  }
+
+  getBookIdByTitle(title: string): void {
+    this.libraryService.getBookIdByTitle(title).subscribe(
+      (bookId: number) => {
+        console.log('Book ID for', title, 'is', bookId);
+        this.selectedBookId = bookId;
+      },
+      (error) => {
+        console.error('Error getting book ID:', error);
+      }
+    );
   }
 
   onAddBook(addForm: NgForm): void {
@@ -94,15 +103,23 @@ export class AppComponent implements OnInit {
     );
   }
 
-  onUpdateBook(book: LibraryRequest): void {
-    this.libraryService.updateBookInformation(book.id, book).subscribe(
+  onUpdateBook(editForm: NgForm): void {
+    const formData: LibraryRequest = {
+      title: editForm.value.title,
+      author: editForm.value.author,
+      coAuthor: editForm.value.coAuthor,
+      category: [editForm.value.category]
+    };
+
+
+    this.libraryService.updateBookInformation(this.selectedBookId, formData).subscribe(
       () => {
         console.log('Book Updated');
         this.loadLibraryData();
       },
       (error: HttpErrorResponse) => {
-        console.log(book.id);
-        console.log(book);
+        console.log(formData);
+        console.error(error);
         alert(error.message);
       }
     );

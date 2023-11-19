@@ -12,6 +12,9 @@ export class LibraryAdminService {
   constructor(private http: HttpClient) {
   }
 
+  public getBookIdByTitle(title: string): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/get-bookId/${title}`);
+  }
   public includeNewBookToLibrary(request: LibraryRequest): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}/add-book`, request);
   }
