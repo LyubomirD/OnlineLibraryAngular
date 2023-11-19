@@ -45,7 +45,6 @@ export class AppComponent implements OnInit {
 
 
   onOpenModal(book: LibraryRequest, mode: string): void {
-    this.getBookIdByTitle(book.title);
 
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
@@ -58,10 +57,12 @@ export class AppComponent implements OnInit {
     }
     if (mode === 'edit') {
       this.editBook = book;
+      this.getBookIdByTitle(book.title);
       button.setAttribute('data-target', '#updateBookModal');
     }
     if (mode === 'delete') {
       this.deleteBook = book;
+      this.getBookIdByTitle(book.title);
       button.setAttribute('data-target', '#deleteBookModal');
     }
     container.appendChild(button);
