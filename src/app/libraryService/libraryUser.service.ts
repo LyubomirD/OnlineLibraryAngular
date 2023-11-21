@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {LibraryRequest} from './libraryRequest';
+import {LibraryRequest} from '../requestModels/libraryRequest';
 
 @Injectable({
   providedIn: 'root',

@@ -45,7 +45,6 @@
     </div>
 
 
-
     <!-- Add Book Modal -->
     <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="addBookModalLabel"
          aria-hidden="true">
@@ -70,13 +69,11 @@
               </div>
               <div class="form-group">
                 <label for="add-coAuthor">Co-Author</label>
-                <input type="text" ngModel name="coAuthor" class="form-control" id="add-coAuthor" placeholder="Co-Author"
-                       required>
+                <input type="text" ngModel name="coAuthor" class="form-control" id="add-coAuthor" placeholder="Co-Author" required>
               </div>
               <div class="form-group">
                 <label for="add-category">Category</label>
-                <input type="text" ngModel name="category" class="form-control" id="add-category" placeholder="Category"
-                       required>
+                <input type="text" ngModel name="category" class="form-control" id="add-category" placeholder="Category" required>
               </div>
               <div class="modal-footer">
                 <button type="button" id="add-book-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -87,7 +84,6 @@
         </div>
       </div>
     </div>
-
 
     <!-- Edit Modal -->
     <div class="modal fade" id="updateBookModal" tabindex="-1" role="dialog" aria-labelledby="updateBookModalLabel"
@@ -112,22 +108,24 @@
               </div>
               <div class="form-group">
                 <label for="edit-coAuthor">Co-Author</label>
-                <input type="text" ngModel name="coAuthor" class="form-control" id="edit-coAuthor" placeholder="Co-Author">
+                <input type="text" ngModel name="coAuthor" class="form-control" id="edit-coAuthor"
+                       placeholder="Co-Author">
               </div>
               <div class="form-group">
                 <label for="edit-category">Category</label>
-                <input type="text" ngModel name="category" class="form-control" id="edit-category" placeholder="Category">
+                <input type="text" ngModel name="category" class="form-control" id="edit-category"
+                       placeholder="Category">
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button (click)="onUpdateBook(editForm)" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+                <button (click)="onUpdateBook(editForm)" data-dismiss="modal" class="btn btn-primary">Save changes
+                </button>
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>
-
 
     <!-- Delete Modal -->
     <div class="modal fade" id="deleteBookModal" tabindex="-1" role="dialog" aria-labelledby="deleteBookModalLabel"
@@ -144,9 +142,8 @@
             <p>Are you sure you want to delete book {{deleteBook?.title}}?</p>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-              <button (click)="onDeleteBook(deleteBook?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+              <button (click)="onDeleteBook()" class="btn btn-danger" data-dismiss="modal">Yes</button>
             </div>
-
           </div>
 
           <!-- Notification for no books -->
