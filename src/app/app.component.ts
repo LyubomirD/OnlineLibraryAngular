@@ -137,4 +137,23 @@ export class AppComponent implements OnInit {
     );
   }
 
+  public searchBooks(key: string): void {
+    console.log(key);
+    const results: LibraryRequest[] = [];
+    for (const book of this.libraryRequest) {
+      if (
+           book.title.toLowerCase().indexOf(key.toLowerCase()) !== -1
+        || book.author.toLowerCase().indexOf(key.toLowerCase()) !== -1
+        || book.coAuthor.toLowerCase().indexOf(key.toLowerCase()) !== -1)
+        //|| this.getCategoryGenres(book.category).toLowerCase().indexOf(key.toLowerCase()) !== -1)
+      {
+        results.push(book);
+      }
+    }
+    this.libraryRequest = results;
+    if (results.length === 0 || !key) {
+      this.loadLibraryData();
+    }
+  }
+
 }
