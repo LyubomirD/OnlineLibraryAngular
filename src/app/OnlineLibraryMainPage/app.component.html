@@ -7,7 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarColor02">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" (click)="onOpenModal(null, 'add')">Add Book <span class="sr-only">(current)</span></a>
+        <a class="nav-link" (click)="onLibraryModal(null, 'add')">Add Book <span class="sr-only">(current)</span></a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -38,18 +38,26 @@
 
 
         <div class="card-body">
-          <div class="float-right btn-group btn-group-sm">
-            <a (click)="onOpenModal(book, 'edit')" class="btn btn-primary tooltips" data-placement="top"
+          <!-- Edit/Delete -->
+          <div class="float-right btn-group btn-group-sm edit-delete-group">
+            <a (click)="onLibraryModal(book, 'edit')" class="btn btn-primary tooltips" data-placement="top"
                data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
-            <a (click)="onOpenModal(book, 'delete')" class="btn btn-secondary tooltips" data-placement="top"
+            <a (click)="onLibraryModal(book, 'delete')" class="btn btn-secondary tooltips" data-placement="top"
                data-original-title="Delete"><i class="fa fa-times"></i></a>
+          </div>
+          <!-- Borrow/Remove -->
+          <div class="float-left btn-group btn-group-sm borrow-remove-group">
+            <a (click)="onBorrowModel(book, 'borrow')" class="btn btn-borrow tooltips" data-placement="top"
+               data-original-title="Borrow"><span class="icon-hand"></span></a>
+            <a (click)="onBorrowModel(book, 'remove')" class="btn btn-remove tooltips" data-placement="top"
+               data-original-title="Remove"><span class="icon-broom"></span></a>
           </div>
         </div>
       </div>
     </div>
 
 
-    <!-- Add Book Modal -->
+        <!-- Add Book Modal -->
     <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="addBookModalLabel"
          aria-hidden="true">
       <div class="modal-dialog" role="document">

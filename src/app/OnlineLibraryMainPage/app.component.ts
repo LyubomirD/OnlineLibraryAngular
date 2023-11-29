@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {LibraryRequest} from './requestModels/libraryRequest';
-import {LibraryAdminService} from './libraryService/libraryAdmin.service';
+import {LibraryRequest} from './library/requestModels/libraryRequest';
+import {LibraryAdminService} from './library/libraryService/libraryAdmin.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {NgForm} from '@angular/forms';
-import {LibraryUserService} from './libraryService/libraryUser.service';
-import {Category} from './requestModels/category';
+import {LibraryUserService} from './library/libraryService/libraryUser.service';
+import {Category} from './library/requestModels/category';
+import {BorrowBookService} from './borrorBook/borrowBookService/borrowBook.service';
+import {BorrowRequest} from './borrorBook/requestModel/borrowRequest';
 
 @Component({
   selector: 'app-root',
@@ -16,10 +18,14 @@ export class AppComponent implements OnInit {
   public editBook: LibraryRequest;
   public deleteBook: LibraryRequest;
   public selectedBookId: number;
+  public borrowRequest: BorrowRequest;
 
+  constructor(
+    private libraryService: LibraryAdminService,
+    private librarySearchServer: LibraryUserService,
+    private borrowedBookService: BorrowBookService
+  ) {}
 
-  constructor(private libraryService: LibraryAdminService, private librarySearchServer: LibraryUserService) {
-  }
 
   ngOnInit(): void {
     this.loadLibraryData();
@@ -43,8 +49,37 @@ export class AppComponent implements OnInit {
     return categories.map(category => category.genre).join(', ');
   }
 
-  onOpenModal(book: LibraryRequest, mode: string): void {
+  onBorrowModel(borrowedBook: BorrowRequest, mode: string): void {
+    const container = document.getElementById('main-container');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
 
+    button.setAttribute('data-toggle', 'modal');
+
+    const modifiedBorrowedBook: BorrowRequest = {
+      title: borrowedBook.title,
+      author: borrowedBook.author,
+      coAuthor: borrowedBook.coAuthor,
+      category: borrowedBook.category
+    };
+    if (mode === 'borrow') {
+      this.borrowRequest = borrowedBook;
+      this.borrowedBookService.borrowBooks(modifiedBorrowedBook);
+      console.log(modifiedBorrowedBook);
+      button.setAttribute('data-target', '#borrowBookModal');
+    }
+
+    if (mode === 'remove') {
+      this.borrowRequest = borrowedBook;
+      this.borrowedBookService.removeBorrowedBook(modifiedBorrowedBook);
+      console.log(modifiedBorrowedBook);
+      button.setAttribute('data-target', '#removeBookModal');
+    }
+  }
+
+
+  onLibraryModal(book: LibraryRequest, mode: string): void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
     button.type = 'button';
@@ -56,22 +91,21 @@ export class AppComponent implements OnInit {
     }
     if (mode === 'edit') {
       this.editBook = book;
-      this.getBookIdByTitle(book.title, book.author);
+      this.getBookIdByTitleAndAuthor(book.title, book.author);
       button.setAttribute('data-target', '#updateBookModal');
     }
     if (mode === 'delete') {
       this.deleteBook = book;
-      this.getBookIdByTitle(book.title, book.author);
+      this.getBookIdByTitleAndAuthor(book.title, book.author);
       button.setAttribute('data-target', '#deleteBookModal');
     }
     container.appendChild(button);
     button.click();
   }
 
-  getBookIdByTitle(title: string, author: string): void {
+  getBookIdByTitleAndAuthor(title: string, author: string): void {
     this.libraryService.getBookIdByTitle(title, author).subscribe(
       (bookId: number) => {
-        console.log('Book ID for', title, 'and', author, 'is', bookId);
         this.selectedBookId = bookId;
       },
       (error) => {
@@ -92,12 +126,10 @@ export class AppComponent implements OnInit {
 
     this.libraryService.includeNewBookToLibrary(formData).subscribe(
       () => {
-        console.log('Book Added');
         this.loadLibraryData();
         addForm.reset();
       },
       (error: HttpErrorResponse) => {
-        console.log(formData);
         alert(error.message);
       }
     );
@@ -114,11 +146,9 @@ export class AppComponent implements OnInit {
 
     this.libraryService.updateBookInformation(this.selectedBookId, formData).subscribe(
       () => {
-        console.log('Book Updated');
         this.loadLibraryData();
       },
       (error: HttpErrorResponse) => {
-        console.log(formData);
         console.error(error);
         alert(error.message);
       }
@@ -128,7 +158,6 @@ export class AppComponent implements OnInit {
   onDeleteBook(): void {
     this.libraryService.deleteBookFromLibrary(this.selectedBookId).subscribe(
       () => {
-        console.log('Book Deleted');
         this.loadLibraryData();
       },
       (error: HttpErrorResponse) => {
@@ -138,15 +167,13 @@ export class AppComponent implements OnInit {
   }
 
   public searchBooks(key: string): void {
-    console.log(key);
     const results: LibraryRequest[] = [];
     for (const book of this.libraryRequest) {
       if (
-           book.title.toLowerCase().indexOf(key.toLowerCase()) !== -1
+        book.title.toLowerCase().indexOf(key.toLowerCase()) !== -1
         || book.author.toLowerCase().indexOf(key.toLowerCase()) !== -1
-        || book.coAuthor.toLowerCase().indexOf(key.toLowerCase()) !== -1)
-        //|| this.getCategoryGenres(book.category).toLowerCase().indexOf(key.toLowerCase()) !== -1)
-      {
+        || book.coAuthor.toLowerCase().indexOf(key.toLowerCase()) !== -1
+        || this.getCategoryGenres(book.category).toLowerCase().indexOf(key.toLowerCase()) !== -1) {
         results.push(book);
       }
     }
