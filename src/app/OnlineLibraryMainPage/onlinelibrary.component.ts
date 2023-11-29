@@ -10,10 +10,10 @@ import {BorrowRequest} from './borrorBook/requestModel/borrowRequest';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  templateUrl: './onlinelibrary.component.html',
+  styleUrls: ['./onlinelibrary.component.css'],
 })
-export class AppComponent implements OnInit {
+export class OnlineLibraryComponent implements OnInit {
   public libraryRequest: LibraryRequest[] = [];
   public editBook: LibraryRequest;
   public deleteBook: LibraryRequest;
