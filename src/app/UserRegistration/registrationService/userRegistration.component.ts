@@ -17,6 +17,7 @@ export class UserRegistrationService {
     return this.http.post<void>(`${this.apiUrl}/administrator`, request);
   }
 
+
   public registrationClient(request: UserRequest): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}/client`, request);
   }

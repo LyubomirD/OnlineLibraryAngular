@@ -16,7 +16,6 @@ export class LibraryAdminService {
     return this.http.get<number>(`${this.apiUrl}/get-bookId/${title}/${author}`);
   }
   public includeNewBookToLibrary(request: LibraryRequest): Observable<void> {
-    console.log('Book request' + request);
     return this.http.post<void>(`${this.apiUrl}/add-book`, request);
   }
 

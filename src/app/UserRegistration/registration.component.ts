@@ -23,17 +23,19 @@ export class RegistrationComponent implements OnInit {
       firstName: registrationForm.value.firstName,
       lastName: registrationForm.value.lastName,
       email: registrationForm.value.email,
-      password: registrationForm.value.password
+      password: registrationForm.value.password,
     };
 
     this.registrationService.registrationAdministrator(formData).subscribe(
-      (response) => {
-        console.log('Registration successful:', response);
+      () => {
+        console.log('User registration success!');
+        registrationForm.reset();
       },
       (error: HttpErrorResponse) => {
-        console.error('Registration failed:', error);
+        console.log(error);
+        alert(error.message);
       }
     );
-
   }
+
 }
