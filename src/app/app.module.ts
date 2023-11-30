@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import {OnlineLibraryComponent} from './OnlineLibraryMainPage/onlinelibrary.component';
+import {RegistrationComponent} from './UserRegistration/registration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    OnlineLibraryComponent
+    OnlineLibraryComponent,
+    RegistrationComponent,
   ],
   imports: [
     FormsModule,

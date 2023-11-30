@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {LibraryRequest} from './library/requestModels/libraryRequest';
+import {LibraryRequest} from './library/bookAndCategoryRequest/libraryRequest';
 import {LibraryAdminService} from './library/libraryService/libraryAdmin.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {NgForm} from '@angular/forms';
 import {LibraryUserService} from './library/libraryService/libraryUser.service';
-import {Category} from './library/requestModels/category';
+import {Category} from './library/bookAndCategoryRequest/category';
 import {BorrowBookService} from './borrorBook/borrowBookService/borrowBook.service';
-import {BorrowRequest} from './borrorBook/requestModel/borrowRequest';
+import {BorrowRequest} from './borrorBook/borrowBookRequest/borrowRequest';
 
 @Component({
   selector: 'app-root',

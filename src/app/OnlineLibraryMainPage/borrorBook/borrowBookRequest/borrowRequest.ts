@@ -1,4 +1,4 @@
-import {Category} from '../../library/requestModels/category';
+import {Category} from '../../library/bookAndCategoryRequest/category';
 
 export interface BorrowRequest {
   title: string;
