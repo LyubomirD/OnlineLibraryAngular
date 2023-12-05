@@ -1,38 +1,26 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpErrorResponse} from '@angular/common/http';
-import {NgForm} from '@angular/forms';
-import {UserLoginService} from './loginService/userLogin.component';
-import {UserLoginRequest} from './loginRequest/userLoginRequest';
+import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { AuthService } from './authLoginService/authService.component';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.css']
 })
-export class UserLoginComponent implements OnInit {
-  login: UserLoginRequest = {email: '', password: ''};
-  constructor(private loginService: UserLoginService) {
-  }
-
-  ngOnInit(): void {
-  }
+export class LoginComponent {
+  constructor(private authService: AuthService) { }
 
   onLogin(loginForm: NgForm): void {
-    const formData: UserLoginRequest = {
-      email: loginForm.value.email,
-      password: loginForm.value.password,
-    };
-
-    this.loginService.userLogin(formData).subscribe(
+    const { username, password } = loginForm.value;
+    this.authService.login(username, password).subscribe(
       () => {
-        console.log('User registration success!');
-        loginForm.reset();
+        console.log('Login successful');
+
+        // Optionally, navigate to a new page or perform other actions
       },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-        alert(error.message);
+      error => {
+        console.error('Login failed', error);
       }
     );
   }
-
 }
