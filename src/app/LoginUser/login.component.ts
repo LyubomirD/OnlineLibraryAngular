@@ -11,10 +11,14 @@ export class LoginComponent {
   constructor(private authService: AuthService) { }
 
   onLogin(loginForm: NgForm): void {
-    const { username, password } = loginForm.value;
-    this.authService.login(username, password).subscribe(
-      () => {
+    const { username, password, rememberMe } = loginForm.value;
+    this.authService.login(username, password, rememberMe).subscribe(
+      response => {
         console.log('Login successful');
+
+        // Extract cookies from the response headers
+        const cookies = response.headers.get('Set-Cookie');
+        console.log('Received cookies:', cookies);
 
         // Optionally, navigate to a new page or perform other actions
       },
