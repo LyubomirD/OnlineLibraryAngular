@@ -34,8 +34,8 @@ export class AuthService {
       .pipe(
         tap((response: HttpResponse<any>) => {
           const responseBody = response.body;
-          if (responseBody && responseBody.sessionId) {
-            const sessionId = responseBody.sessionId;
+          if (responseBody && responseBody.MY_SESSION_ID) {
+            const sessionId = responseBody.MY_SESSION_ID;
             console.log('Session ID: ' + sessionId);
             this.cookieService.setCookie('MY_SESSION_ID', sessionId);
             console.log('Cookie: ' + this.cookieService.getCookie('MY_SESSION_ID'));

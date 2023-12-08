@@ -17,4 +17,13 @@ export class CookieService {
 
     return cookieValue ? cookieValue.split('=')[1] : null;
   }
+
+  getAllCookies(): { [name: string]: string } {
+    const allCookies: { [name: string]: string } = {};
+    document.cookie.split('; ').forEach((cookie) => {
+      const [name, value] = cookie.split('=');
+      allCookies[name] = value;
+    });
+    return allCookies;
+  }
 }
