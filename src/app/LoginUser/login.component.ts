@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { AuthService } from './authLoginService/authService.component';
+import {Component} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {AuthService} from './authLoginService/authService.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,19 +9,16 @@ import { AuthService } from './authLoginService/authService.component';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) {
+  }
 
   onLogin(loginForm: NgForm): void {
-    const { username, password, rememberMe } = loginForm.value;
-    this.authService.login(username, password, rememberMe).subscribe(
-      response => {
+    const {username, password} = loginForm.value;
+    this.authService.login(username, password).subscribe(
+      () => {
         console.log('Login successful');
 
-        // Extract cookies from the response headers
-        const cookies = response.headers.get('Set-Cookie');
-        console.log('Received cookies:', cookies);
-
-        // Optionally, navigate to a new page or perform other actions
+        this.router.navigate(['/homepage']).then(r => null);
       },
       error => {
         console.error('Login failed', error);

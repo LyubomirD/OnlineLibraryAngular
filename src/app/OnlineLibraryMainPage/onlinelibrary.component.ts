@@ -165,22 +165,33 @@ export class OnlineLibraryComponent implements OnInit {
       }
     );
   }
-
   public searchBooks(key: string): void {
     const results: LibraryRequest[] = [];
+    const lowercaseKey = this.removeSymbolsAndLowerCase(key);
+
     for (const book of this.libraryRequest) {
+      const title = this.removeSymbolsAndLowerCase(book.title) || '';
+      const author = this.removeSymbolsAndLowerCase(book.author) || '';
+      const coAuthor = this.removeSymbolsAndLowerCase(book.coAuthor) || '';
+      const categoryGenres = this.removeSymbolsAndLowerCase(this.getCategoryGenres(book.category)) || '';
+
       if (
-        book.title.toLowerCase().indexOf(key.toLowerCase()) !== -1
-        || book.author.toLowerCase().indexOf(key.toLowerCase()) !== -1
-        || book.coAuthor.toLowerCase().indexOf(key.toLowerCase()) !== -1
-        || this.getCategoryGenres(book.category).toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+        title.indexOf(lowercaseKey) !== -1 ||
+        author.indexOf(lowercaseKey) !== -1 ||
+        coAuthor.indexOf(lowercaseKey) !== -1 ||
+        categoryGenres.indexOf(lowercaseKey) !== -1
+      ) {
         results.push(book);
       }
     }
+
     this.libraryRequest = results;
     if (results.length === 0 || !key) {
       this.loadLibraryData();
     }
   }
 
+  private removeSymbolsAndLowerCase(str: string): string {
+    return str?.replace(/[.,?"'!;:]/g, '').toLowerCase() || '';
+  }
 }

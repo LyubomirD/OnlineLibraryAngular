@@ -1,15 +1,17 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
+import {catchError, tap} from 'rxjs/operators';
+import {CookieService} from '../../CookieManagement/cookie.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private loginUrl = 'http://localhost:8080/api/v1/login';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cookieService: CookieService) {
+  }
 
   private handleError(error: HttpErrorResponse): Observable<any> {
     let errorMessage = 'An error occurred';
@@ -22,35 +24,23 @@ export class AuthService {
     return throwError(errorMessage);
   }
 
-  login(username: string, password: string, rememberMe: boolean): Observable<any> {
+  login(username: string, password: string): Observable<any> {
     const credentials = btoa(`${username}:${password}`);
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: `Basic ${credentials}`
+      Authorization: `Basic ${credentials}`,
     });
-
-    const options = {
-      headers,
-      withCredentials: true,
-      observe: 'response' as const
-    };
-
-    const body = { email: username, password, rememberMe };
-
-    return this.http.post(this.loginUrl, body, options)
+    return this.http.post<any>(this.loginUrl, null, {headers, observe: 'response'})
       .pipe(
         tap((response: HttpResponse<any>) => {
-          // Extract cookies from the response headers
-          const cookies = response.headers.getAll('Set-Cookie');
-          console.log('Received cookies:', cookies);
-
-          // Optionally, navigate to a new page or perform other actions
-
-          // If needed, you can also access specific cookie values, e.g., for 'SESSION_ID':
-          const sessionIdCookie = response.headers.get('Set-Cookie');
-          const sessionId = sessionIdCookie ? sessionIdCookie.split(';')[0].split('=')[1] : null;
-          console.log('Extracted SESSION_ID:', sessionId);
+          const responseBody = response.body;
+          if (responseBody && responseBody.MY_SESSION_ID) {
+            const sessionId = responseBody.MY_SESSION_ID;
+            console.log('Session ID: ' + sessionId);
+            this.cookieService.setCookie('MY_SESSION_ID', sessionId);
+            console.log('Cookie: ' + this.cookieService.getCookie('MY_SESSION_ID'));
+          }
         }),
         catchError(this.handleError)
       );
