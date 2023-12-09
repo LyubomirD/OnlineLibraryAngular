@@ -1,27 +1,34 @@
-# Onlinelibrary
+# OnlineLibrary
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.0.
 
-## Development server
+## Description
+- The Online Library Management System is a web application built using 
+Angular for the frontend and Spring Boot for the backend. The system provides 
+a user-friendly interface for users to register, log in, and manage their 
+personal library. Administrators have additional privileges, allowing them 
+to maintain the online library by adding, updating, and deleting books.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Features
+### 1. User Registration and Authentication: 
+- Users can register themselves, providing necessary information to create an account. Upon registration, a session cookie is generated, ensuring a seamless login experience. Users, once authenticated, receive a personalized profile with a session cookie for convenient access to the application.
 
-## Code scaffolding
+### 2. User Roles:
+- The system supports different user roles, distinguishing between regular users and administrators (ADMIN). Administrators have extended capabilities, including the ability to manage the online library.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 3. Online Library: 
+- The main page of the application represents an online library. All users, including administrators, can browse the collection of books available in the library. Each book is displayed with relevant details such as title, author, co-author, and category.
 
-## Build
+### 4. Admin Privileges: 
+- Administrators can perform administrative tasks, including adding new books to the library, updating existing book information, and removing books from the collection.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### 5. Personal Library Management:
+- Users can borrow books from the online library, adding them to their personal library. Subsequently, users can remove books from their personal library once they have finished reading them.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Technologies Used
+### 1. Development
+- Angular
+- TypeScript
+- Bootstrap
+- HTML
+- CSS
