@@ -24,7 +24,8 @@ export class OnlineLibraryComponent implements OnInit {
     private libraryService: LibraryAdminService,
     private librarySearchServer: LibraryUserService,
     private borrowedBookService: BorrowBookService
-  ) {}
+  ) {
+  }
 
 
   ngOnInit(): void {
@@ -48,36 +49,6 @@ export class OnlineLibraryComponent implements OnInit {
     }
     return categories.map(category => category.genre).join(', ');
   }
-
-  onBorrowModel(borrowedBook: BorrowRequest, mode: string): void {
-    const container = document.getElementById('main-container');
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.style.display = 'none';
-
-    button.setAttribute('data-toggle', 'modal');
-
-    const modifiedBorrowedBook: BorrowRequest = {
-      title: borrowedBook.title,
-      author: borrowedBook.author,
-      coAuthor: borrowedBook.coAuthor,
-      category: borrowedBook.category
-    };
-    if (mode === 'borrow') {
-      this.borrowRequest = borrowedBook;
-      this.borrowedBookService.borrowBooks(modifiedBorrowedBook);
-      console.log(modifiedBorrowedBook);
-      button.setAttribute('data-target', '#borrowBookModal');
-    }
-
-    if (mode === 'remove') {
-      this.borrowRequest = borrowedBook;
-      this.borrowedBookService.removeBorrowedBook(modifiedBorrowedBook);
-      console.log(modifiedBorrowedBook);
-      button.setAttribute('data-target', '#removeBookModal');
-    }
-  }
-
 
   onLibraryModal(book: LibraryRequest, mode: string): void {
     const container = document.getElementById('main-container');
@@ -165,6 +136,63 @@ export class OnlineLibraryComponent implements OnInit {
       }
     );
   }
+
+
+  onBorrowModel(borrowedBook: BorrowRequest, mode: string): void {
+    const container = document.getElementById('main-container');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-toggle', 'modal');
+
+    if (mode === 'borrow') {
+      this.borrowRequest = borrowedBook;
+      this.borrowBookFromLibrary(borrowedBook);
+      button.setAttribute('data-target', '#borrowBookModal');
+    }
+    if (mode === 'remove') {
+      this.borrowRequest = borrowedBook;
+      this.removeBookFromYourLibrary(borrowedBook);
+      button.setAttribute('data-target', '#removeBookModal');
+    }
+
+    container.appendChild(button);
+    button.click();
+  }
+
+  borrowBookFromLibrary(book: BorrowRequest): void {
+
+    const modifiedBorrowedBook: BorrowRequest = {
+      title: book.title,
+      author: book.author,
+      coAuthor: book.coAuthor,
+      category: book.category
+    };
+    this.borrowedBookService.borrowBooks(modifiedBorrowedBook).subscribe(
+      () => {
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  private removeBookFromYourLibrary(book: BorrowRequest): void {
+    const modifiedBorrowedBook: BorrowRequest = {
+      title: book.title,
+      author: book.author,
+      coAuthor: book.coAuthor,
+      category: book.category
+    };
+    this.borrowedBookService.removeBorrowedBook(modifiedBorrowedBook).subscribe(
+      () => {
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
   public searchBooks(key: string): void {
     const results: LibraryRequest[] = [];
     const lowercaseKey = this.removeSymbolsAndLowerCase(key);
