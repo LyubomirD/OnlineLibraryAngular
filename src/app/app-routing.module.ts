@@ -4,12 +4,14 @@ import {OnlineLibraryComponent} from './OnlineLibraryMainPage/onlinelibrary.comp
 import {RegistrationComponent} from './UserRegistration/registration.component';
 import {LoginComponent} from './LoginUser/login.component';
 import {HomepageComponent} from './HomePage/homepage.component';
+import {PersonalLibraryComponent} from './UserPersonalLibrary/personalLibrary.component';
 
 const routes: Routes = [
   { path: 'online-library', redirectTo: '/online-library' },
   { path: 'online-library', component: OnlineLibraryComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'personal-library', component: PersonalLibraryComponent },
   { path: 'homepage', component: HomepageComponent },
   { path: '', redirectTo: '/homepage', pathMatch: 'full' },
 ];

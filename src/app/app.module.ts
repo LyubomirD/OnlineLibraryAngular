@@ -9,6 +9,7 @@ import {OnlineLibraryComponent} from './OnlineLibraryMainPage/onlinelibrary.comp
 import {RegistrationComponent} from './UserRegistration/registration.component';
 import { LoginComponent } from './LoginUser/login.component';
 import {HomepageComponent} from './HomePage/homepage.component';
+import {PersonalLibraryComponent} from './UserPersonalLibrary/personalLibrary.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import {HomepageComponent} from './HomePage/homepage.component';
     RegistrationComponent,
     LoginComponent,
     HomepageComponent,
+    PersonalLibraryComponent,
   ],
   imports: [
     FormsModule,

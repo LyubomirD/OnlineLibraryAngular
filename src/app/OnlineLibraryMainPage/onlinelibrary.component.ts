@@ -7,6 +7,7 @@ import {LibraryUserService} from './library/libraryService/libraryUser.service';
 import {Category} from './library/bookAndCategoryRequest/category';
 import {BorrowBookService} from './borrorBook/borrowBookService/borrowBook.service';
 import {BorrowRequest} from './borrorBook/borrowBookRequest/borrowRequest';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,8 @@ export class OnlineLibraryComponent implements OnInit {
   constructor(
     private libraryService: LibraryAdminService,
     private librarySearchServer: LibraryUserService,
-    private borrowedBookService: BorrowBookService
+    private borrowedBookService: BorrowBookService,
+    private router: Router
   ) {
   }
 
@@ -221,5 +223,9 @@ export class OnlineLibraryComponent implements OnInit {
 
   private removeSymbolsAndLowerCase(str: string): string {
     return str?.replace(/[.,?"'!;:]/g, '').toLowerCase() || '';
+  }
+
+  goToPersonalLibrary(): void {
+    this.router.navigate(['/personal-library']).then(r => null);
   }
 }

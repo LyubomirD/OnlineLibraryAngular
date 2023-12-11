@@ -16,14 +16,4 @@ export class LibraryUserService {
     return this.http.get<LibraryRequest[]>(`${this.apiUrl}`);
   }
 
-  public searchBooksByTitle(title: string): Observable<LibraryRequest[]> {
-    if (!title || title.trim() === '') {
-      console.error('Invalid title for book search');
-      return Observable.throw('Invalid title for book search');
-    }
-
-    const searchUrl = `${this.apiUrl}/search/${title}`;
-    return this.http.get<LibraryRequest[]>(searchUrl);
-  }
-
 }
