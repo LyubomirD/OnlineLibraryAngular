@@ -8,6 +8,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {OnlineLibraryComponent} from './OnlineLibraryMainPage/onlinelibrary.component';
 import {RegistrationComponent} from './UserRegistration/registration.component';
 import { LoginComponent } from './LoginUser/login.component';
+import {HomepageComponent} from './HomePage/homepage.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { LoginComponent } from './LoginUser/login.component';
     OnlineLibraryComponent,
     RegistrationComponent,
     LoginComponent,
+    HomepageComponent,
   ],
   imports: [
     FormsModule,

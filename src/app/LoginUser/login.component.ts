@@ -18,7 +18,7 @@ export class LoginComponent {
       () => {
         console.log('Login successful');
 
-        this.router.navigate(['/homepage']).then(r => null);
+        this.router.navigate(['/online-library']).then(r => null);
       },
       error => {
         console.error('Login failed', error);
