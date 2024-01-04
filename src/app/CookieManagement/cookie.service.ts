@@ -11,19 +11,14 @@ export class CookieService {
   }
 
   getCookie(name: string): string | null {
-    const cookieValue = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith(`${name}=`));
+    const cookies = document.cookie.split('; ');
 
-    return cookieValue ? cookieValue.split('=')[1] : null;
-  }
+    for (const cookie of cookies) {
+      if (cookie.startsWith(`${name}=`)) {
+        return cookie.substring(name.length + 1);
+      }
+    }
 
-  getAllCookies(): { [name: string]: string } {
-    const allCookies: { [name: string]: string } = {};
-    document.cookie.split('; ').forEach((cookie) => {
-      const [name, value] = cookie.split('=');
-      allCookies[name] = value;
-    });
-    return allCookies;
+    return null;
   }
 }
