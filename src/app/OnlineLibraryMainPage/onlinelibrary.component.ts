@@ -29,7 +29,6 @@ export class OnlineLibraryComponent implements OnInit {
   ) {
   }
 
-
   ngOnInit(): void {
     this.loadLibraryData();
   }

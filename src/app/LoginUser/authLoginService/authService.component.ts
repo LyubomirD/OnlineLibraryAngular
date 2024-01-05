@@ -37,9 +37,7 @@ export class AuthService {
           const responseBody = response.body;
           if (responseBody && responseBody.MY_SESSION_ID) {
             const sessionId = responseBody.MY_SESSION_ID;
-            console.log('Session ID: ' + sessionId);
             this.cookieService.setCookie('MY_SESSION_ID', sessionId);
-            console.log('Cookie: ' + this.cookieService.getCookie('MY_SESSION_ID'));
           }
         }),
         catchError(this.handleError)

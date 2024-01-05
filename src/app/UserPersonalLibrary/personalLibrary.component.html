@@ -45,7 +45,17 @@
                     data-original-title="Remove"><span class="fa fa-trash"></span></button>
           </div>
         </div>
+
+      </div>
+    </div>
+    <!-- Notification for no books -->
+    <div *ngIf="libraryRequest && libraryRequest.length === 0" class="col-lg-12 col-md-12 col-xl-12">
+      <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">NO BOOKS!</h4>
+        <p>No Books were found.</p>
       </div>
     </div>
   </div>
 </div>
+
+

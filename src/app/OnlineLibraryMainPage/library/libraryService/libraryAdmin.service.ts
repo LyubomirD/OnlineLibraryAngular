@@ -2,8 +2,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {LibraryRequest} from '../bookAndCategoryRequest/libraryRequest';
-import {CookieService} from '../../../CookieManagement/cookie.service';
-import {SessionHeader} from '../../../CookieManagement/sessionheader';
 
 
 @Injectable({

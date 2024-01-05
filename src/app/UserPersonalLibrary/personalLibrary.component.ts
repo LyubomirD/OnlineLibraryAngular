@@ -23,10 +23,12 @@ export class PersonalLibraryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadLibraryData();
+    this.loadPersonalLibraryData();
   }
 
-  public loadLibraryData(): void {
+// TODO find the reason why loadPersonalLibraryData does not refresh automatically, fix it
+
+  public loadPersonalLibraryData(): void {
     this.personalLibrary.getUserBooks().subscribe(
       (response: LibraryRequest[]) => {
         this.libraryRequest = response;
@@ -121,7 +123,7 @@ export class PersonalLibraryComponent implements OnInit {
 
     this.libraryRequest = results;
     if (results.length === 0 || !key) {
-      this.loadLibraryData();
+      this.loadPersonalLibraryData();
     }
   }
 
