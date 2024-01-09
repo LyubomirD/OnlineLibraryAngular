@@ -38,3 +38,8 @@ button {
 button:hover {
   background-color: #007;
 }
+
+.register-button[disabled] {
+  background-color: grey;
+  cursor: not-allowed;
+}

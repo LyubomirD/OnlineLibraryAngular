@@ -21,6 +21,20 @@
       <input type="password" ngModel id="password" name="password" class="form-control" required>
     </div>
 
-    <button type="submit">Register</button>
+    <div class="form-group">
+      <label>Role:</label>
+      <div>
+        <label>
+          <input type="radio" name="role" [(ngModel)]="selectedRole" value="admin" required>
+          Administrator
+        </label>
+        <label>
+          <input type="radio" name="role" [(ngModel)]="selectedRole" value="client" required>
+          Client
+        </label>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="!selectedRole" class="register-button">Register</button>
   </form>
 </div>

@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpErrorResponse} from '@angular/common/http';
-import {NgForm} from '@angular/forms';
-import {UserRegistrationService} from './registrationService/userRegistration.component';
-import {UserRequest} from './registrationRequest/userRequest';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
+import { UserRegistrationService } from './registrationService/userRegistration.component';
+import { UserRequest } from './registrationRequest/userRequest';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,15 +11,19 @@ import {Router} from '@angular/router';
   styleUrls: ['./registration.component.css'],
 })
 export class RegistrationComponent implements OnInit {
-  user: UserRequest = {firstName: '', lastName: '', email: '', password: ''};
+  selectedRole: string = null; // 'admin' or 'client'
+  user: UserRequest = { firstName: '', lastName: '', email: '', password: '' };
 
-  constructor(private registrationService: UserRegistrationService, private router: Router) {
-  }
+  constructor(private registrationService: UserRegistrationService, private router: Router) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onSubmit(registrationForm: NgForm): void {
+    if (!this.selectedRole) {
+      alert('Please select a role (Administrator or Client)');
+      return;
+    }
+
     const formData: UserRequest = {
       firstName: registrationForm.value.firstName,
       lastName: registrationForm.value.lastName,
@@ -27,17 +31,43 @@ export class RegistrationComponent implements OnInit {
       password: registrationForm.value.password,
     };
 
+    if (this.selectedRole === 'admin') {
+      this.registerAsAdministrator(formData, registrationForm);
+    } else {
+      this.registerAsClient(formData, registrationForm);
+    }
+  }
+
+  private registerAsAdministrator(formData: UserRequest, registrationForm: NgForm): void {
     this.registrationService.registrationAdministrator(formData).subscribe(
       () => {
-        console.log('User registration success!');
-        this.router.navigate(['/login']).then(r => null);
-        registrationForm.reset();
+        this.handleRegistrationSuccess('Admin registration success!', registrationForm);
       },
       (error: HttpErrorResponse) => {
-        console.log(error);
-        alert(error.message);
+        this.handleRegistrationError(error);
       }
     );
   }
 
+  private registerAsClient(formData: UserRequest, registrationForm: NgForm): void {
+    this.registrationService.registrationClient(formData).subscribe(
+      () => {
+        this.handleRegistrationSuccess('Client registration success!', registrationForm);
+      },
+      (error: HttpErrorResponse) => {
+        this.handleRegistrationError(error);
+      }
+    );
+  }
+
+  private handleRegistrationSuccess(successMessage: string, registrationForm: NgForm): void {
+    console.log(successMessage);
+    this.router.navigate(['/login']).then(r => null);
+    registrationForm.reset();
+  }
+
+  private handleRegistrationError(error: HttpErrorResponse): void {
+    console.log(error);
+    alert(error.message);
+  }
 }
