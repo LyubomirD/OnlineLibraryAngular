@@ -26,9 +26,6 @@ export class PersonalLibraryComponent implements OnInit {
   ngOnInit(): void {
     this.loadPersonalLibraryData();
   }
-
-// TODO find the reason why loadPersonalLibraryData does not refresh automatically, fix it
-
   public loadPersonalLibraryData(): void {
     console.log('Outside the method');
     this.personalLibrary.getUserBooks().subscribe(

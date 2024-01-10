@@ -8,6 +8,7 @@ import {Category} from './library/bookAndCategoryRequest/category';
 import {BorrowBookService} from './borrorBook/borrowBookService/borrowBook.service';
 import {BorrowRequest} from './borrorBook/borrowBookRequest/borrowRequest';
 import {Router} from '@angular/router';
+import {LogoutService} from './logout/logout.service';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +26,8 @@ export class OnlineLibraryComponent implements OnInit {
     private libraryService: LibraryAdminService,
     private librarySearchServer: LibraryUserService,
     private borrowedBookService: BorrowBookService,
-    private router: Router
+    private router: Router,
+    private logoutService: LogoutService
   ) {
   }
 
@@ -226,5 +228,17 @@ export class OnlineLibraryComponent implements OnInit {
 
   goToPersonalLibrary(): void {
     this.router.navigate(['/personal-library']).then(r => null);
+  }
+
+  logout(): void {
+    this.logoutService.logoutUser().subscribe(
+      () => {
+        console.log('User logged out successfully.');
+        this.router.navigate(['/homepage']).then(r => null);
+      },
+      (error) => {
+        console.error('Error during logout:', error);
+      }
+    );
   }
 }

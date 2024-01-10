@@ -15,6 +15,7 @@
       <input type="search" (ngModelChange)="searchBooks(key.value)" #key="ngModel" ngModel
              name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search books..." required>
     </form>
+    <button class="btn btn-success ml-2" (click)="logout()">Logout</button>
   </div>
 </nav>
 <div class="container" id="main-container">
