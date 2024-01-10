@@ -7,6 +7,7 @@ import { BorrowRequest } from '../OnlineLibraryMainPage/borrorBook/borrowBookReq
 import { BorrowBookService } from '../OnlineLibraryMainPage/borrorBook/borrowBookService/borrowBook.service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './personalLibrary.component.html',
@@ -29,9 +30,12 @@ export class PersonalLibraryComponent implements OnInit {
 // TODO find the reason why loadPersonalLibraryData does not refresh automatically, fix it
 
   public loadPersonalLibraryData(): void {
+    console.log('Outside the method');
     this.personalLibrary.getUserBooks().subscribe(
       (response: LibraryRequest[]) => {
+        console.log('Inside the method, before the refresh');
         this.libraryRequest = response;
+        console.log('End of the method');
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -76,7 +80,7 @@ export class PersonalLibraryComponent implements OnInit {
       category: book.category,
     };
     this.borrowedBookService.borrowBooks(modifiedBorrowedBook).subscribe(
-      () => {},
+      () => { this.loadPersonalLibraryData(); },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
@@ -91,7 +95,7 @@ export class PersonalLibraryComponent implements OnInit {
       category: book.category,
     };
     this.borrowedBookService.removeBorrowedBook(modifiedBorrowedBook).subscribe(
-      () => {},
+      () => { this.loadPersonalLibraryData(); },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }

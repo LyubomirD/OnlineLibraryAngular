@@ -10,6 +10,7 @@ import {RegistrationComponent} from './UserRegistration/registration.component';
 import { LoginComponent } from './LoginUser/login.component';
 import {HomepageComponent} from './HomePage/homepage.component';
 import {PersonalLibraryComponent} from './UserPersonalLibrary/personalLibrary.component';
+import {PersonalLibraryService} from './UserPersonalLibrary/personalLibraryService/personalLibrary.service';
 
 @NgModule({
   declarations: [

@@ -13,7 +13,8 @@ export class PersonalLibraryService {
   constructor(private http: HttpClient) {
   }
 
-  public getUserBooks(): Observable<LibraryRequest []> {
+  public getUserBooks(): Observable<LibraryRequest[]> {
+    console.log('GetUserBooks method is called');
     return this.http.get<LibraryRequest[]>(`${this.apiUrl}`, {withCredentials: true});
   }
 }
