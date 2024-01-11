@@ -1,14 +1,14 @@
 import {Component} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {AuthService} from './authLoginService/authService.component';
+import {AuthService} from './authLoginService/authAdminService.component';
 import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './loginAdmin.component.html',
+  styleUrls: ['./loginAdmin.component.css']
 })
-export class LoginComponent {
+export class LoginAdminComponent {
   constructor(private authService: AuthService, private router: Router) {
   }
 
@@ -18,7 +18,7 @@ export class LoginComponent {
       () => {
         console.log('Login successful');
 
-        this.router.navigate(['/online-library']).then(r => null);
+        this.router.navigate(['/online-library-admin']).then(r => null);
       },
       error => {
         console.error('Login failed', error);

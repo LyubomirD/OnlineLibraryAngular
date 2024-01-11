@@ -1,17 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {OnlineLibraryComponent} from './OnlineLibraryMainPage/onlinelibrary.component';
+import {OnlineLibraryAdminComponent} from './OnlineLibraryAdminUse/onlineLibraryAdmin.component';
 import {RegistrationComponent} from './UserRegistration/registration.component';
-import {LoginComponent} from './LoginUser/login.component';
+import {LoginAdminComponent} from './Login/LoginAdmin/loginAdmin.component';
 import {HomepageComponent} from './HomePage/homepage.component';
-import {PersonalLibraryComponent} from './UserPersonalLibrary/personalLibrary.component';
+import {PersonalLibraryAdminComponent} from './AdminPersonalLibrary/personalLibraryAdmin.component';
+import {LoginClientComponent} from './Login/LoginClient/loginClient.component';
+import {OnlineLibraryClientComponent} from './OnlineLibraryClientUse/onlineLibraryClient.component';
+import {PersonalLibraryClientComponent} from './ClientPersonalLibrary/personalLibraryClient.component';
 
 const routes: Routes = [
-  { path: 'online-library', redirectTo: '/online-library' },
-  { path: 'online-library', component: OnlineLibraryComponent },
+  { path: 'online-library-admin', component: OnlineLibraryAdminComponent },
+  { path: 'online-library-client', component: OnlineLibraryClientComponent },
   { path: 'registration', component: RegistrationComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'personal-library', component: PersonalLibraryComponent },
+  { path: 'loginAdmin', component: LoginAdminComponent },
+  { path: 'loginClient', component: LoginClientComponent },
+  { path: 'personal-library-admin', component: PersonalLibraryAdminComponent },
+  { path: 'personal-library-client', component: PersonalLibraryClientComponent },
   { path: 'homepage', component: HomepageComponent },
   { path: '', redirectTo: '/homepage', pathMatch: 'full' },
 ];

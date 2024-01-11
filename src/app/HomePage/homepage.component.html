@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">OnlineLibrary</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <a class="navbar-brand" style="color: white;">Online Library</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+          aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 </nav>
@@ -17,8 +17,17 @@
     <!-- Right side with login and registration buttons -->
     <div class="col-md-6">
       <div class="text-center">
-        <button class="btn btn-primary" (click)="redirectToLogin()">Login</button>
-        <button class="btn btn-success" (click)="redirectToRegistration()">Registration</button>
+        <lu>
+          <li>
+            <button class="btn btn-success" (click)="redirectToRegistration()">Registration</button>
+          </li>
+          <li>
+            <button class="btn btn-primary" (click)="redirectToLoginClient()">Login Client</button>
+          </li>
+          <li>
+            <button class="btn btn-primary" (click)="redirectToLoginAdmin()">Login Admin</button>
+          </li>
+        </lu>
       </div>
     </div>
   </div>

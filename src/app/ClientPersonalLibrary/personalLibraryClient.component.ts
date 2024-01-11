@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { LibraryRequest } from '../OnlineLibraryMainPage/library/bookAndCategoryRequest/libraryRequest';
+import { LibraryRequest } from '../OnlineLibraryAdminUse/library/bookAndCategoryRequest/libraryRequest';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PersonalLibraryService } from './personalLibraryService/personalLibrary.service';
-import { Category } from '../OnlineLibraryMainPage/library/bookAndCategoryRequest/category';
-import { BorrowRequest } from '../OnlineLibraryMainPage/borrorBook/borrowBookRequest/borrowRequest';
-import { BorrowBookService } from '../OnlineLibraryMainPage/borrorBook/borrowBookService/borrowBook.service';
+import { Category } from '../OnlineLibraryAdminUse/library/bookAndCategoryRequest/category';
+import { BorrowRequest } from '../OnlineLibraryAdminUse/borrorBook/borrowBookRequest/borrowRequest';
+import { BorrowBookService } from '../OnlineLibraryAdminUse/borrorBook/borrowBookService/borrowBook.service';
 import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-root',
-  templateUrl: './personalLibrary.component.html',
-  styleUrls: ['./personalLibrary.component.css'],
+  templateUrl: './personalLibraryClient.component.html',
+  styleUrls: ['./personalLibraryClient.component.css'],
 })
-export class PersonalLibraryComponent implements OnInit {
+export class PersonalLibraryClientComponent implements OnInit {
   public libraryRequest: LibraryRequest[] = [];
   public borrowRequest: BorrowRequest;
 
@@ -133,6 +133,6 @@ export class PersonalLibraryComponent implements OnInit {
   }
 
   goToOnlineLibrary(): void {
-    this.router.navigate(['/online-library']).then((r) => null);
+    this.router.navigate(['/online-library-client']).then((r) => null);
   }
 }

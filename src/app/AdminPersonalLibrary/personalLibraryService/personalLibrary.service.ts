@@ -1,7 +1,7 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {LibraryRequest} from '../../OnlineLibraryMainPage/library/bookAndCategoryRequest/libraryRequest';
+import {LibraryRequest} from '../../OnlineLibraryAdminUse/library/bookAndCategoryRequest/libraryRequest';
 
 
 @Injectable({

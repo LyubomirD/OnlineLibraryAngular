@@ -1,0 +1,40 @@
+.card-body {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-remove {
+  color: #fff;
+  background-color: #6C757D;
+}
+
+.btn-borrow {
+  color: #fff;
+  background-color: #007BFF;
+}
+
+.icon-hand {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+.icon-broom {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+.btn-borrow .icon-hand::before {
+  content: "\1F590";
+}
+
+.btn-remove .icon-broom::before {
+  content: "\1F9F9";
+}

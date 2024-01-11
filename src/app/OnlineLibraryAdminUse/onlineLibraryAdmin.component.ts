@@ -12,10 +12,10 @@ import {LogoutService} from './logout/logout.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './onlinelibrary.component.html',
-  styleUrls: ['./onlinelibrary.component.css'],
+  templateUrl: './onlineLibraryAdmin.component.html',
+  styleUrls: ['./onlineLibraryAdmin.component.css'],
 })
-export class OnlineLibraryComponent implements OnInit {
+export class OnlineLibraryAdminComponent implements OnInit {
   public libraryRequest: LibraryRequest[] = [];
   public editBook: LibraryRequest;
   public deleteBook: LibraryRequest;
@@ -227,7 +227,7 @@ export class OnlineLibraryComponent implements OnInit {
   }
 
   goToPersonalLibrary(): void {
-    this.router.navigate(['/personal-library']).then(r => null);
+    this.router.navigate(['/personal-library-admin']).then(r => null);
   }
 
   logout(): void {

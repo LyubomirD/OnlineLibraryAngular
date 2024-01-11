@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" style="color: white;">Online Library</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+          aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <button class="btn btn-primary" (click)="goToPersonalLibrary()">Personal Library</button>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input type="search" (ngModelChange)="searchBooks(key.value)" #key="ngModel" ngModel
+             name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search books..." required>
+    </form>
+    <button class="btn btn-success ml-2" (click)="logout()">Logout</button>
+  </div>
+</nav>
+<div class="container" id="main-container">
+  <div class="row">
+    <div *ngFor="let book of libraryRequest" class="col-md-6 col-xl-3">
+      <div class="card m-b-30">
+        <div class="card-body row">
+          <div class="col-6 card-title align-self-center mb-0">
+            <h5>Title: {{book?.title}}</h5>
+            <p class="m-0">Author: {{book?.author}}</p>
+          </div>
+        </div>
+
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><i class="fa fa-user float-right"></i>Co-Author: {{ book?.coAuthor }}</li>
+          <!-- Displaying genres of categories -->
+          <li *ngIf="book?.category && book?.category.length > 0" class="list-group-item">
+            <i class="fa fa-tag float-right"></i>
+            Category: {{ getCategoryGenres(book?.category) }}
+          </li>
+        </ul>
+
+
+        <div class="card-body">
+          <!-- Borrow/Remove -->
+          <div class="float-left btn-group btn-group-sm borrow-remove-group">
+            <button (click)="onBorrowModel(book, 'borrow')" class="btn btn-borrow tooltips" data-placement="top"
+                    data-original-title="Borrow"><span class="icon-hand"></span></button>
+            <button (click)="onBorrowModel(book, 'remove')" class="btn btn-remove tooltips" data-placement="top"
+                    data-original-title="Remove"><span class="fa fa-trash"></span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification for no books -->
+    <div *ngIf="libraryRequest && libraryRequest.length === 0" class="col-lg-12 col-md-12 col-xl-12">
+      <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">NO BOOKS!</h4>
+        <p>No Books were found.</p>
+      </div>
+    </div>
+  </div>
+</div>

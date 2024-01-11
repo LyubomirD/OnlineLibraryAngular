@@ -10,8 +10,11 @@ export class HomepageComponent {
 
   constructor(private router: Router) {
   }
-  redirectToLogin(): void {
-    this.router.navigate(['/login']).then(r => null);
+  redirectToLoginAdmin(): void {
+    this.router.navigate(['/loginAdmin']).then(r => null);
+  }
+  redirectToLoginClient(): void {
+    this.router.navigate(['/loginClient']).then(r => null);
   }
 
   redirectToRegistration(): void {
