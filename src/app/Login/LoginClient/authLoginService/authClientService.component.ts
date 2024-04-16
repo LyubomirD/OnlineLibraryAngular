@@ -9,8 +9,7 @@ import {catchError, tap} from 'rxjs/operators';
 export class AuthService {
   private loginUrl = 'http://localhost:8080/api/v1/login';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   private handleError(error: HttpErrorResponse): Observable<any> {
     let errorMessage = 'An error occurred';
@@ -30,16 +29,17 @@ export class AuthService {
       'Content-Type': 'application/json',
       Authorization: `Basic ${credentials}`,
     });
-    return this.http.post<any>(this.loginUrl, null, {headers, observe: 'response'})
+
+    return this.http.post<any>(this.loginUrl, null, { headers, observe: 'response' })
       .pipe(
-        tap((response: HttpResponse<any>) => {
+        tap((response) => {
           const responseBody = response.body;
-          if (responseBody && responseBody.MY_SESSION_ID) {
-            const sessionId = responseBody.MY_SESSION_ID;
+          if (responseBody && responseBody.token) {
+            const token = responseBody.token;
+            localStorage.setItem('jwtToken', token); // Store token in localStorage
           }
         }),
         catchError(this.handleError)
       );
   }
-
 }

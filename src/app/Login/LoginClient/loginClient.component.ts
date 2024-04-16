@@ -9,16 +9,15 @@ import {Router} from '@angular/router';
   styleUrls: ['./loginClient.component.css']
 })
 export class LoginClientComponent {
-  constructor(private authService: AuthService, private router: Router) {
-  }
+  constructor(private authService: AuthService, private router: Router) {}
 
   onLogin(loginForm: NgForm): void {
-    const {username, password} = loginForm.value;
+    const { username, password } = loginForm.value;
     this.authService.login(username, password).subscribe(
       () => {
         console.log('Login successful');
-
-        this.router.navigate(['/online-library-client']).then(r => null);
+        this.router.navigate(['/online-library-client']).then(() => {
+        });
       },
       error => {
         console.error('Login failed', error);

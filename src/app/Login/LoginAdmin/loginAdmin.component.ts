@@ -17,7 +17,6 @@ export class LoginAdminComponent {
       () => {
         console.log('Login successful');
         this.router.navigate(['/online-library-admin']).then(() => {
-          // Navigate to admin page
         });
       },
       error => {

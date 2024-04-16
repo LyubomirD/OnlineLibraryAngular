@@ -13,8 +13,15 @@ export class PersonalLibraryService {
   constructor(private http: HttpClient) {
   }
 
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('jwtToken');
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    });
+  }
+
   public getUserBooks(): Observable<LibraryRequest[]> {
-    console.log('GetUserBooks method is called');
-    return this.http.get<LibraryRequest[]>(`${this.apiUrl}`, {withCredentials: true});
+    return this.http.get<LibraryRequest[]>(`${this.apiUrl}`, {headers: this.getHeaders()});
   }
 }
