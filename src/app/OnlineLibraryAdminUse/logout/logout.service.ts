@@ -11,6 +11,6 @@ export class LogoutService {
   constructor(private http: HttpClient) {}
 
   logoutUser(): Observable<void> {
-    return this.http.post<void>(this.logoutUrl, null, { withCredentials: true });
+    return this.http.post<void>(this.logoutUrl, null);
   }
 }

@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
-import {CookieService} from '../../../CookieManagement/cookie.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +9,7 @@ import {CookieService} from '../../../CookieManagement/cookie.service';
 export class AuthService {
   private loginUrl = 'http://localhost:8080/api/v1/login';
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {
+  constructor(private http: HttpClient) {
   }
 
   private handleError(error: HttpErrorResponse): Observable<any> {
@@ -37,7 +36,6 @@ export class AuthService {
           const responseBody = response.body;
           if (responseBody && responseBody.MY_SESSION_ID) {
             const sessionId = responseBody.MY_SESSION_ID;
-            this.cookieService.setCookie('MY_SESSION_ID', sessionId);
           }
         }),
         catchError(this.handleError)

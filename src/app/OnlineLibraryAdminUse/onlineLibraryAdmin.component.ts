@@ -104,9 +104,11 @@ export class OnlineLibraryAdminComponent implements OnInit {
         addForm.reset();
       },
       (error: HttpErrorResponse) => {
+        console.error('Error:', error);
         alert(error.message);
       }
     );
+
   }
 
   onUpdateBook(editForm: NgForm): void {
@@ -175,6 +177,7 @@ export class OnlineLibraryAdminComponent implements OnInit {
       () => {
       },
       (error: HttpErrorResponse) => {
+        console.error('Error:', error);
         alert(error.message);
       }
     );
@@ -191,6 +194,7 @@ export class OnlineLibraryAdminComponent implements OnInit {
       () => {
       },
       (error: HttpErrorResponse) => {
+        console.error('Error:', error);
         alert(error.message);
       }
     );
