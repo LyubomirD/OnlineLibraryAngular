@@ -1,8 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import {catchError, tap} from 'rxjs/operators';
-import {CookieService} from '../../../CookieManagement/cookie.service';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +9,7 @@ import {CookieService} from '../../../CookieManagement/cookie.service';
 export class AuthService {
   private loginUrl = 'http://localhost:8080/api/v1/login';
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {
-  }
+  constructor(private http: HttpClient) {}
 
   private handleError(error: HttpErrorResponse): Observable<any> {
     let errorMessage = 'An error occurred';
@@ -31,17 +29,17 @@ export class AuthService {
       'Content-Type': 'application/json',
       Authorization: `Basic ${credentials}`,
     });
-    return this.http.post<any>(this.loginUrl, null, {headers, observe: 'response'})
+
+    return this.http.post<any>(this.loginUrl, null, { headers, observe: 'response' })
       .pipe(
-        tap((response: HttpResponse<any>) => {
+        tap((response) => {
           const responseBody = response.body;
-          if (responseBody && responseBody.MY_SESSION_ID) {
-            const sessionId = responseBody.MY_SESSION_ID;
-            this.cookieService.setCookie('MY_SESSION_ID', sessionId);
+          if (responseBody && responseBody.token) {
+            const token = responseBody.token;
+            localStorage.setItem('jwtToken', token); // Store token in localStorage
           }
         }),
         catchError(this.handleError)
       );
   }
-
 }
